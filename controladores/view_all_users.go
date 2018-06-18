@@ -5,18 +5,17 @@ import (
 	"../modelos"
 	arango "github.com/diegogub/aranGO"
 	"github.com/kataras/iris"
-	"github.com/kataras/iris/context"
 
 )
 
-func HandlerAllUsers (contexto context.Context) {
+func HandlerAllUsers (contexto iris.Context) {
 
 	query := arango.NewQuery(`
 			FOR usuario in usuarios
 			RETURN usuario
 		`)
 
-	cursor,err := db.GetSessionDB().DB("boanergepro").Execute(query)
+	cursor,err := db.GetSessionDB().DB("api").Execute(query)
 	if  err != nil {
 		contexto.StatusCode(iris.StatusInternalServerError)
 	}

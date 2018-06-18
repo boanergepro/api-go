@@ -5,10 +5,9 @@ import (
 	"../modelos"
 	arango "github.com/diegogub/aranGO"
 	"github.com/kataras/iris"
-	"github.com/kataras/iris/context"
 )
 
-func HandlerUser (contexto context.Context) {
+func HandlerUser (contexto iris.Context) {
 	key_params := contexto.Params().Get("key")
 
 	query := arango.NewQuery(`
@@ -20,7 +19,7 @@ func HandlerUser (contexto context.Context) {
 		"key": key_params,
 	}
 
-	cursor, err := db.GetSessionDB().DB("boanergepro").Execute(query)
+	cursor, err := db.GetSessionDB().DB("api").Execute(query)
 	if  err != nil {
 		contexto.StatusCode(iris.StatusInternalServerError)
 	}

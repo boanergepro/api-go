@@ -5,11 +5,10 @@ import (
 	"../modelos"
 	arango "github.com/diegogub/aranGO"
 	"github.com/kataras/iris"
-	"github.com/kataras/iris/context"
 
 )
 
-func HandlerUpdateUser (contexto context.Context) {
+func HandlerUpdateUser (contexto iris.Context) {
 	key_params := contexto.Params().Get("key")
 
 	query := arango.NewQuery(`
@@ -21,7 +20,7 @@ func HandlerUpdateUser (contexto context.Context) {
 		"key": key_params,
 	}
 
-	cursor, err := db.GetSessionDB().DB("boanergepro").Execute(query)
+	cursor, err := db.GetSessionDB().DB("api").Execute(query)
 
 	if err != nil {
 		contexto.StatusCode(iris.StatusInternalServerError)
@@ -33,7 +32,7 @@ func HandlerUpdateUser (contexto context.Context) {
 	
 	contexto.ReadJSON(&user_actualiar)
 
-	err = db.GetSessionDB().DB("boanergepro").Col("usuarios").Replace(user_actualiar.Key, user_actualiar)
+	err = db.GetSessionDB().DB("api").Col("usuarios").Replace(user_actualiar.Key, user_actualiar)
 	if err != nil {
 		contexto.StatusCode(iris.StatusInternalServerError)
 	}

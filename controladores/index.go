@@ -1,10 +1,10 @@
 package controladores
 
 import (
-	"github.com/kataras/iris/context"
+	"github.com/kataras/iris"
 )
 
-func HandleIndex (contexto context.Context) {
+func HandleIndex (contexto iris.Context) {
 	contexto.HTML(`
 		<h1>Api corriendo</h1><br>
 		<h4>Recursos:</h4><br>
